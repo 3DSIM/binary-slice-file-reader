@@ -10,7 +10,7 @@ namespace BinarySliceFileReader.ScanFile
         public ScanFile()
         {
             this.Contours = new List<Contour>();
-            this.ScanLines = new List<ScanLine>();
+            this.ScanLineBlocks = new List<ScanLineBlock>();
             this.ParameterSets = new List<ParameterSet>();
         }
 
@@ -20,7 +20,7 @@ namespace BinarySliceFileReader.ScanFile
 
         public List<Contour> Contours;
 
-        public List<ScanLine> ScanLines;
+        public List<ScanLineBlock> ScanLineBlocks;
 
         public List<ParameterSet> ParameterSets;
     }

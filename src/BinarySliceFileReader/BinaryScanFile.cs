@@ -123,7 +123,22 @@ namespace BinarySliceFileReader
         private static void ReadScanLineBlock(ScanFile.ScanFile scanFile, byte[] data)
         {
             int offset = 0;
+            ScanLineBlock block = new ScanLineBlock();
+
+            // count
             int scanLineCount = BitConverter.ToInt32(data, offset);
+            offset += sizeof(int);
+
+            // parameter set id
+            block.ParameterSetId = BitConverter.ToInt32(data, offset);
+            offset += sizeof(int);
+
+            // rotation angle
+            block.RotationAngle = BitConverter.ToSingle(data, offset);
+            offset += sizeof(float);
+
+            // Scan Area Id
+            block.ScanAreaId = BitConverter.ToInt32(data, offset);
             offset += sizeof(int);
 
             for (int i = 0; i < scanLineCount; i++)
@@ -137,8 +152,10 @@ namespace BinarySliceFileReader
                 float y2 = BitConverter.ToSingle(data, offset);
                 offset += sizeof(float);
 
-                scanFile.ScanLines.Add(new ScanLine(x1, y1, x2, y2));
+                block.ScanLines.Add(new ScanLine(x1, y1, x2, y2));
             }
+
+            scanFile.ScanLineBlocks.Add(block);
         }
     }
 }
