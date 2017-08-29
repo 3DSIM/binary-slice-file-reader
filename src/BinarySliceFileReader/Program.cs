@@ -50,7 +50,7 @@ namespace BinarySliceFileReader
 
             foreach (Contour contour in scanFile.Contours)
             {
-                string line = $"{contour.Points.Count}\t";
+                string line = $"{contour.Points.Count}\t{contour.Type}\t";
                 foreach (Point point in contour.Points)
                 {
                     line += $"{point.X}\t{point.Y}\t";
@@ -60,15 +60,23 @@ namespace BinarySliceFileReader
 
             writer.WriteLine();
 
-            writer.WriteLine("Scan Lines");
-            writer.WriteLine("x1\ty1\tx2\ty2");
-
-            foreach (ScanLine scanLine in scanFile.ScanLines)
+            foreach (ScanLineBlock block in scanFile.ScanLineBlocks)
             {
-                writer.WriteLine($"{scanLine.X1}\t{scanLine.Y1}\t{scanLine.X2}\t{scanLine.Y2}");
-            }
+                writer.WriteLine(string.Empty);
+                writer.WriteLine($"Scan Area Index: {block.ScanAreaId}");
+                writer.WriteLine($"Rotation Angle: {block.RotationAngle}");
+                writer.WriteLine($"Parameter Set: {block.ParameterSetId}");
+                writer.WriteLine("Scan Lines");
+                writer.WriteLine("x1\ty1\tx2\ty2");
 
-            writer.WriteLine();
+                foreach (ScanLine scanLine in block.ScanLines)
+                {
+                    writer.WriteLine($"{scanLine.X1}\t{scanLine.Y1}\t{scanLine.X2}\t{scanLine.Y2}");
+                }
+
+                writer.WriteLine();
+
+            }
 
             writer.Dispose();
         }

@@ -52,5 +52,7 @@ X Repeat count times - 1 per parameter set
 |------------------|------------|------------------------------------------------------------|
 | Count            | int        | Number of scan lines                                       |
 | Parameter Set Id | int        | Number of bytes in the Data section                        |
+| Rotation Angle   | float      | Rotation angle of fill type scan lines. If not fill, -1    |
+| Scan Area Id     | int        | Index of scan area, -1 if not applicable                   |
 | Scan line data   | byte array | (line1) x1,y1,x2,y2 (line2) x1,y1,x2,y2 …                  |
 
