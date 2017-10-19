@@ -6,6 +6,17 @@ C# reader for 3DSIM binary scan files
 dotnet run <scanfile.bin> <scanFileSummary>
 ```
 
+## Technical Specifications *required
+### Platforms Supported
+For all projects, it will be MacOS, Windows, and Linux or N/A
+
+### Inputs / Outputs
+Input - 3DSIM binary slice file.
+Output - text file with a summary of the scan lines
+
+### Resource Requirements
+N/A
+
 # File Format
 ## Introduction
 The binary file is made up of a series of data blocks where each data block looks like this:
@@ -56,3 +67,12 @@ X Repeat count times - 1 per parameter set
 | Scan Area Id     | int        | Index of scan area, -1 if not applicable                   |
 | Scan line data   | byte array | (line1) x1,y1,x2,y2 (line2) x1,y1,x2,y2 …                  |
 
+## Contributors
+* Tim Sublette
+* Ryan Walls
+* Chad Queen
+* Pete Krull
+* Alex Drinkwater
+
+## Original release
+September 2017

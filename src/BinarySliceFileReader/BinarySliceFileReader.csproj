@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>BinarySliceFileReader</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>BinarySliceFileReader</PackageId>
+    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+</Project>
