@@ -106,14 +106,14 @@ namespace BinarySliceFileReader
 
             for (int i = 0; i < parameterSetCount; i++)
             {
-                // get fields 
+                // get fields
                 int id = BitConverter.ToInt32(data, offset);
                 offset += sizeof(int);
                 int type = BitConverter.ToInt32(data, offset);
                 offset += sizeof(int);
                 int laserPower = BitConverter.ToInt32(data, offset);
                 offset += sizeof(int);
-                float laserSpeed = BitConverter.ToInt32(data, offset);
+                float laserSpeed = BitConverter.ToSingle(data, offset);
                 offset += sizeof(float);
 
                 scanFile.ParameterSets.Add(new ParameterSet(id, type, laserPower, laserSpeed));

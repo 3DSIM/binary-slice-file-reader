@@ -29,6 +29,11 @@ namespace BinarySliceFileReader
 
         private static void OutputSummary(ScanFile.ScanFile scanFile, string summaryFileName)
         {
+            float minX = float.MaxValue;
+            float minY = float.MaxValue;
+            float maxX = float.MinValue;
+            float maxY = float.MinValue;
+
             StreamWriter writer = new StreamWriter(File.Open(summaryFileName, FileMode.Create));
 
             writer.WriteLine(scanFile.Version);
@@ -71,6 +76,7 @@ namespace BinarySliceFileReader
 
                 foreach (ScanLine scanLine in block.ScanLines)
                 {
+                    UpdateMinMax(scanLine, ref minX, ref minY, ref maxX, ref maxY);
                     writer.WriteLine($"{scanLine.X1}\t{scanLine.Y1}\t{scanLine.X2}\t{scanLine.Y2}");
                 }
 
@@ -78,8 +84,27 @@ namespace BinarySliceFileReader
 
             }
 
+            writer.WriteLine($"Min x,y\tMax x,y\n{minX},{minY}\t{maxX},{maxY}\n");
+
             writer.Dispose();
         }
-    }
 
+        public static void UpdateMinMax(ScanLine scanLine, ref float minX, ref float minY, ref float maxX, ref float maxY)
+        {
+            var xVals = new float[] { scanLine.X1, scanLine.X2 };
+            var yVals = new float[] { scanLine.Y1, scanLine.Y2 };
+
+            foreach (float val in xVals)
+            {
+                minX = (val < minX) ? val : minX;
+                maxX = (val > maxX) ? val : maxX;
+            }
+
+            foreach (float val in yVals)
+            {
+                minY = (val < minY) ? val : minY;
+                maxY = (val > maxY) ? val : maxY;
+            }
+        }
+    }
 }
