@@ -44,7 +44,7 @@ These are the outer and inner most contours of the part.
 |   | Count         | int        | Number of contours                                         |
 | X | Type          | int        | 0 - outside, 1 - inside, 2 - open                          |
 | X | Points        | int        | Number of points in the contour                            |
-| X | Point Data    | byte array | x1,y1,x2,y2,x3,y3                                          |
+| X | Point Data    | byte array | x1,y1,x2,y2,x3,y3 ...                                      |
 
 X Repeat count times - 1 per contour
 
@@ -66,7 +66,7 @@ X Repeat count times - 1 per parameter set
 | Parameter Set Id | int        | Id of parameter set associated with these scan lines       |
 | Rotation Angle   | float      | Rotation angle for fill type scan lines, -1 otherwise      |
 | Scan Area Id     | int        | Index of scan area, -1 if not applicable                   |
-| Scan line data   | byte array | (line1) x1,y1,x2,y2 (line2) x1,y1,x2,y2                    |
+| Scan line data   | byte array | (line1) x1,y1,x2,y2 (line2) x1,y1,x2,y2 ...                |
 
 ## Contributors
 * Tim Sublette
