@@ -39,6 +39,7 @@ Data will contain n ascii bytes to make a string
 
 ### Block Type 3 - Contours
 These are the outer and inner most contours of the part.
+
 |   | Data          | Type       | Notes                                                      |
 |---|---------------|------------|------------------------------------------------------------|
 |   | Count         | int        | Number of contours                                         |
