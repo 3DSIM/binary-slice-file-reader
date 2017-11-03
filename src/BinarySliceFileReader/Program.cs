@@ -40,7 +40,7 @@ namespace BinarySliceFileReader
             writer.WriteLine($"Layer: {scanFile.Layer}");
             writer.WriteLine();
 
-            writer.WriteLine("Parameter Sets");
+            writer.WriteLine($"Parameter Sets [{scanFile.ParameterSets.Count}]");
             writer.WriteLine("ID\tType\tLaser Power\tLaser Speed");
 
             foreach (ParameterSet parameterSet in scanFile.ParameterSets)
@@ -50,24 +50,25 @@ namespace BinarySliceFileReader
 
             writer.WriteLine();
 
-            writer.WriteLine("Contours");
-            writer.WriteLine("Count\tType\tx1, y1, x2, y2 ...");
+            writer.WriteLine($"Contours [{scanFile.Contours.Count}]");
+            writer.WriteLine("Type\tPoint Count\tx1, y1, x2, y2 ...");
 
             foreach (Contour contour in scanFile.Contours)
             {
-                string line = $"{contour.Points.Count}\t{contour.Type}\t";
+                string line = $"{contour.Type}\t{contour.Points.Count}\t";
                 foreach (Point point in contour.Points)
                 {
                     line += $"{point.X}\t{point.Y}\t";
+                    UpdateMinMax(point, ref minX, ref minY, ref maxX, ref maxY);
                 }
                 writer.WriteLine(line);
             }
 
             writer.WriteLine();
+            writer.WriteLine($"Scan line blocks [{scanFile.ScanLineBlocks.Count}]");
 
             foreach (ScanLineBlock block in scanFile.ScanLineBlocks)
             {
-                writer.WriteLine(string.Empty);
                 writer.WriteLine($"Scan Area Index: {block.ScanAreaId}");
                 writer.WriteLine($"Rotation Angle: {block.RotationAngle}");
                 writer.WriteLine($"Parameter Set: {block.ParameterSetId}");
@@ -76,7 +77,8 @@ namespace BinarySliceFileReader
 
                 foreach (ScanLine scanLine in block.ScanLines)
                 {
-                    UpdateMinMax(scanLine, ref minX, ref minY, ref maxX, ref maxY);
+                    UpdateMinMax(new Point(scanLine.X1, scanLine.Y1), ref minX, ref minY, ref maxX, ref maxY);
+                    UpdateMinMax(new Point(scanLine.X2, scanLine.Y2), ref minX, ref minY, ref maxX, ref maxY);
                     writer.WriteLine($"{scanLine.X1}\t{scanLine.Y1}\t{scanLine.X2}\t{scanLine.Y2}");
                 }
 
@@ -89,22 +91,12 @@ namespace BinarySliceFileReader
             writer.Dispose();
         }
 
-        public static void UpdateMinMax(ScanLine scanLine, ref float minX, ref float minY, ref float maxX, ref float maxY)
+        public static void UpdateMinMax(Point point, ref float minX, ref float minY, ref float maxX, ref float maxY)
         {
-            var xVals = new float[] { scanLine.X1, scanLine.X2 };
-            var yVals = new float[] { scanLine.Y1, scanLine.Y2 };
-
-            foreach (float val in xVals)
-            {
-                minX = (val < minX) ? val : minX;
-                maxX = (val > maxX) ? val : maxX;
-            }
-
-            foreach (float val in yVals)
-            {
-                minY = (val < minY) ? val : minY;
-                maxY = (val > maxY) ? val : maxY;
-            }
+            minX = (point.X < minX) ? point.X : minX;
+            maxX = (point.X > maxX) ? point.X : maxX;
+            minY = (point.Y < minY) ? point.Y : minY;
+            maxY = (point.Y > maxY) ? point.Y : maxY;
         }
     }
 }
