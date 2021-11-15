@@ -1,3 +1,6 @@
+**This project has moved to https://tfs.ansys.com:8443/tfs/ANSYS_Development/Additive/_git/binary-slice-file-reader**
+
+
 # binary-slice-file-reader
 C# reader for 3DSIM binary scan files
 
